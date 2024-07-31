@@ -10,7 +10,7 @@ userRouter.get('/', async (req, res) => {
 })
 
 userRouter.post('/', async (req, res) => {
-  const {username, name, age, gender, password} = req.body
+  const {username, name, age, gender, password, email} = req.body
 
   const saltRaunds = 10 
 
@@ -21,6 +21,7 @@ userRouter.post('/', async (req, res) => {
     name,
     age,
     gender,
+    email,
     passwordHash
   })
 

@@ -14,13 +14,20 @@ const userSlice = createSlice({
   }
 })
 
-export const { setUsers } = userSlice.actions
+export const { setUsers, createUser } = userSlice.actions
 
 export const initializeUsers = () => {
   return async dispatch => {
     const users = await userService.getAll()
-    console.log(users)
+  
     dispatch(setUsers(users))
+  }
+}
+
+export const addUser = (user) => {
+  return async dispatch => {
+    const newUser = await userService.createUser(user)
+    dispatch(createUser(newUser))
   }
 }
 
