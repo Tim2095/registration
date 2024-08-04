@@ -1,0 +1,21 @@
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+
+.header-links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-link {
+  padding: 10px;
+  list-style-type: none;
+}
+
+.header-link a {
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
+}

@@ -1,34 +1,33 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const mongoose = require('mongoose')
-const userRouter = require('./controllers/user')
-const config = require('./utils/config')
+const express = require("express");
+require("express-async-errors");
+const app = express();
+const cors = require("cors");
+const mongoose = require("mongoose");
+const userRouter = require("./controllers/user");
+const config = require("./utils/config");
 mongoose.set("strictQuery", false);
+const logger = require("./utils/logger");
+const middleware = require("./utils/middleware");
 
-console.log('connecting to ', config.MONGODB_URL)
+logger.info("connecting to", config.MONGODB_URL);
 
-const DB_URL = config.MONGODB_URL.replace('PASSWORD', encodeURIComponent(config.DB_PASSWORD))
+const DB_URL = config.MONGODB_URL.replace(
+  "PASSWORD",
+  encodeURIComponent(config.DB_PASSWORD)
+);
 
-mongoose.connect(DB_URL).then(() => console.log(`connected to Mongo DB`)).catch(error => {
-  console.log(`Failed to connect to database ${error}`)
-})
+
 
 mongoose
-  .connect(config.MONGODB_URI)
-  .then(() => {
-    console.log("connected to Mongo DB");
-  })
-  .catch((error) => {
-    console.log("failed to connect to database ", error);
-  });
+  .connect(DB_URL)
+  .then(() => console.log("Connected to Mongo DB"))
+  .catch((error) => console.log("Failed to connect to database", error));
 
-console.log(config.MONGODB_URL)
+app.use(express.json());
+app.use(cors());
 
-app.use(express.json())
-app.use(cors())
+app.use("/api/users", userRouter);
 
-
-app.use('/api/users', userRouter)
-
-module.exports = app
+app.use(middleware.errorHandler)
+app.use(middleware.unknownEndpoint)
+module.exports = app;

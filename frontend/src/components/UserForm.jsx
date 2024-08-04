@@ -1,19 +1,22 @@
-import classes from './userForm.module.css'
-import { addUser } from '../reducers/userReducer';
-import { useDispatch } from 'react-redux';
+import classes from "./userForm.module.css";
+import { addUser } from "../reducers/userReducer";
+import { useDispatch } from "react-redux";
 const UserForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const onAddUser = () => {
-    dispatch(addUser({
-      name: 'Artem',
-      username: 'Art',
-      password: "artem1998",
-      gender: 'male',
-      age: 25,
-      email: "mao98@gmail.com"
-    }))
-  }
+  const onAddUser = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      addUser({
+        name: "Artem",
+        username: "Art",
+        password: "artem1998",
+        age: 25,
+        email: "mao98@gmail.com",
+      })
+    );
+  };
 
   return (
     <div>
@@ -23,7 +26,40 @@ const UserForm = () => {
           <p>Please fill in this form to create an account.</p>
           <hr />
 
-          {/* <label htmlFor="email">
+          <label htmlFor="name">
+            <b>Name</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            name="name"
+            id="name"
+            required
+            className={classes["input-text"]}
+          />
+          <label htmlFor="username">
+            <b>Username</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            name="username"
+            id="username"
+            required
+            className={classes["input-text"]}
+          />
+          <label htmlFor="age">
+            <b>Age</b>
+          </label>
+          <input
+            type="number"
+            placeholder="Enter Age"
+            name="age"
+            id="age"
+            required
+            className={classes["input-text"]}
+          />
+          <label htmlFor="email">
             <b>Email</b>
           </label>
           <input
@@ -32,7 +68,7 @@ const UserForm = () => {
             name="email"
             id="email"
             required
-            className={classes['input-text']}
+            className={classes["input-text"]}
           />
 
           <label htmlFor="psw">
@@ -44,7 +80,7 @@ const UserForm = () => {
             name="psw"
             id="psw"
             required
-            className={classes['input-password']}
+            className={classes["input-password"]}
           />
 
           <label htmlFor="psw-repeat">
@@ -56,15 +92,19 @@ const UserForm = () => {
             name="psw-repeat"
             id="psw-repeat"
             required
-            className={classes['input-password']}
+            className={classes["input-password"]}
           />
-          <hr /> */}
+          <hr />
 
           {/* <p>
             By creating an account you agree to our{" "}
             <a href="#">Terms & Privacy</a>.
           </p> */}
-          <button onClick={onAddUser} type="submit" className={classes.registerbtn}>
+          <button
+            onClick={onAddUser}
+            type="submit"
+            className={classes.registerbtn}
+          >
             Register
           </button>
         </div>
