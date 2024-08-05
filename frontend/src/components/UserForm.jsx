@@ -1,31 +1,41 @@
 import classes from "./userForm.module.css";
 import { addUser } from "../reducers/userReducer";
 import { useDispatch } from "react-redux";
+
 const UserForm = () => {
   const dispatch = useDispatch();
 
   const onAddUser = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
+    const username = e.target.username.value;
+    const password = e.target.psw.value;
+    const passwordRepeat = e.target["psw-repeat"].value;
+    const age = e.target.age.value;
+    const email = e.target.email.value;
 
-    dispatch(
-      addUser({
-        name: "Artem",
-        username: "Art",
-        password: "artem1998",
-        age: 25,
-        email: "mao98@gmail.com",
-      })
-    );
+    if (password === passwordRepeat) {
+      dispatch(
+        addUser({
+          name,
+          username,
+          password,
+          age,
+          email,
+        })
+      ) 
+    } else {
+      return
+    }
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={onAddUser}>
         <div className={classes.container}>
           <h1>Register</h1>
           <p>Please fill in this form to create an account.</p>
           <hr />
-
           <label htmlFor="name">
             <b>Name</b>
           </label>
@@ -100,11 +110,7 @@ const UserForm = () => {
             By creating an account you agree to our{" "}
             <a href="#">Terms & Privacy</a>.
           </p> */}
-          <button
-            onClick={onAddUser}
-            type="submit"
-            className={classes.registerbtn}
-          >
+          <button type="submit" className={classes.registerbtn}>
             Register
           </button>
         </div>
