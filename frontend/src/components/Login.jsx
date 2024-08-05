@@ -1,30 +1,30 @@
 import classes from "./login.module.css";
-
+import loginService from '../services/login'
 const Login = () => {
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    const email = e.target.email.value
+    const password = e.target.password.value 
+    loginService({
+      email,
+      password
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={handleLogin}>
       <div className={classes.container}>
         <h1>Login</h1>
         <hr />
-        <label htmlFor="name">
-          <b>Name</b>
+        <label htmlFor="email">
+          <b>Email</b>
         </label>
         <input
           type="text"
           placeholder="Enter Name"
-          name="name"
-          id="name"
-          required
-          className={classes["input-text"]}
-        />
-        <label htmlFor="username">
-          <b>Username</b>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          name="username"
-          id="username"
+          name="email"
+          id="email"
           required
           className={classes["input-text"]}
         />
@@ -34,8 +34,8 @@ const Login = () => {
         <input
           type="password"
           placeholder="Enter Password"
-          name="psw"
-          id="psw"
+          name="password"
+          id="password"
           required
           className={classes["input-password"]}
         />
