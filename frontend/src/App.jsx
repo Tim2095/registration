@@ -4,6 +4,7 @@ import { initializeUsers } from "./reducers/userReducer";
 import UserForm from "./components/UserForm";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const App = () => {
   const st = useSelector((state) => state.header);
@@ -16,10 +17,14 @@ const App = () => {
 
   return (
     <div>
-      {/* {users.map(user => <p key={user.id}>{user.name}</p>)} */}
       <Header />
-      {st === "signup" && <UserForm />}
-      {st === 'login' && <Login />}
+      <Routes>
+        <Route path="/" element={<UserForm />} />
+        <Route path="/register" element={<UserForm />} /> 
+        {/* {st === "signup" && <UserForm />} */}
+        <Route path="login" element={<Login />} />
+        {/* {st === "login" && <Login />} */}
+      </Routes>
     </div>
   );
 };
