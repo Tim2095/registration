@@ -1,20 +1,30 @@
+import { useState, useEffect } from "react";
 import UserForm from "./components/UserForm";
 import Header from "./components/Header";
 import Login from "./components/Login";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
 import Profile from "./components/Profile";
-import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./reducers/userReducer";
 
 const App = () => {
-
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users);
-  console.log(user.length)
+
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const token = localStorage.getItem("authAppUser");
-    console.log(token)
-  }, []);
+    const loggedUserJson = localStorage.getItem('authAppUser');
+    if (loggedUserJson) {
+      const user = JSON.parse(loggedUserJson);
+      dispatch(setUser(user));
+    }
+    setLoading(false); 
+
+  if (loading) {
+
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -26,8 +36,7 @@ const App = () => {
         <Route
           path="profile"
           element={user && user.username ? <Profile /> : <Navigate replace to="/login" />}
-       />
-
+        />
       </Routes>
     </div>
   );
