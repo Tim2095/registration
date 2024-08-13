@@ -1,12 +1,12 @@
 import classes from "./login.module.css";
 
 import loginService from "../services/login";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const handleLogin = async (e) => {
@@ -18,12 +18,10 @@ const Login = () => {
       password,
     });
 
-    const token = loggedUser.token
     dispatch(setUser(loggedUser));
-    localStorage.setItem('authToken', token )
-    navigate('/profile')
+    localStorage.setItem("authAppUser", JSON.stringify(loggedUser));
+    navigate("/profile");
   };
-
 
   return (
     <form onSubmit={handleLogin}>

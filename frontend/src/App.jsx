@@ -7,12 +7,14 @@ import Profile from "./components/Profile";
 import { useSelector } from "react-redux";
 
 const App = () => {
+
+
   const user = useSelector((state) => state.users);
+  console.log(user.length)
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    console.log(token);
-    console.log(user);
-  }, [user]);
+    const token = localStorage.getItem("authAppUser");
+    console.log(token)
+  }, []);
 
   return (
     <div>
@@ -23,9 +25,9 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route
           path="profile"
-          element={user && user.length > 0 ? <Profile /> : <Navigate replace to="/login" />}
+          element={user && user.username ? <Profile /> : <Navigate replace to="/login" />}
        />
-        {/* // element={user ? <Users /> : <Navigate replace to="/login" />} */}
+
       </Routes>
     </div>
   );
