@@ -1,8 +1,20 @@
 import classes from "./header.module.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser, clearUser } from "../reducers/userReducer";
+
+
 const Header = () => {
   const user = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('authAppUser');
+    dispatch(clearUser()); 
+    navigate('/');
+  };
 
   return (
     <header className={classes.header}>
@@ -10,12 +22,13 @@ const Header = () => {
         <li className={classes["header-link"]}>
           <Link to="/register">SignUp</Link>
         </li>
-        {!user.username && <li className={classes["header-link"]}>
-          <Link to="/login">SignIn</Link>
-        </li>}
-        {user && user.username && (
+        {!user ? (
           <li className={classes["header-link"]}>
-            <Link to="/">Sign Out</Link>
+            <Link to="/login">SignIn</Link>
+          </li>
+        ) : (
+          <li className={classes["header-link"]}>
+            <Link to="/" onClick={handleSignOut}>Sign Out</Link>
           </li>
         )}
       </div>

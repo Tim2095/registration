@@ -18,6 +18,8 @@ const App = () => {
     if (loggedUserJson) {
       const user = JSON.parse(loggedUserJson);
       dispatch(setUser(user));
+    } else {
+      dispatch(setUser(null)); // Clear user if no data in localStorage
     }
     setLoading(false);
   }, [dispatch]);
