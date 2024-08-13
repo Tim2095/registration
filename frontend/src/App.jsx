@@ -10,19 +10,18 @@ import { setUser } from "./reducers/userReducer";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loggedUserJson = localStorage.getItem('authAppUser');
+    const loggedUserJson = localStorage.getItem("authAppUser");
     if (loggedUserJson) {
       const user = JSON.parse(loggedUserJson);
       dispatch(setUser(user));
     }
-    setLoading(false); 
+    setLoading(false);
+  }, [dispatch]);
 
   if (loading) {
-
     return <div>Loading...</div>;
   }
 
@@ -35,7 +34,13 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route
           path="profile"
-          element={user && user.username ? <Profile /> : <Navigate replace to="/login" />}
+          element={
+            user && user.username ? (
+              <Profile />
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
         />
       </Routes>
     </div>
