@@ -1,15 +1,15 @@
 const baseUrl = "/api/users";
 import axios from "axios";
 
-const getAll = async () => {
-  try {
-    const response = await axios.get(baseUrl);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error;
-  }
-};
+// const getAll = async () => {
+//   try {
+//     const response = await axios.get(baseUrl);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     throw error;
+//   }
+// };
 
 const createUser = async (user) => {
   try {
@@ -21,7 +21,22 @@ const createUser = async (user) => {
   }
 };
 
+const getUserData = async (token) => {
+  try {
+    const response = await axios.get(`${baseUrl}/me`, {
+      headers: {
+         Authorization: `Bearer ${token}`
+      }
+    })
+    return response.data
+  } catch(error) {
+    console.error('Failed to fetch user data:', error);
+    throw error;
+  }
+}
+
 export default {
-  getAll,
+  // getAll,
   createUser,
+  getUserData
 };

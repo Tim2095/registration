@@ -1,16 +1,29 @@
 import classes from "./login.module.css";
-import loginService from '../services/login'
-const Login = () => {
 
-  const handleLogin = (e) => {
-    e.preventDefault()
-    const email = e.target.email.value
-    const password = e.target.password.value 
-    loginService({
+import loginService from "../services/login";
+import { useDispatch} from "react-redux";
+import { setUser } from "../reducers/userReducer";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const loggedUser = await loginService({
       email,
-      password
-    })
-  }
+      password,
+    });
+
+    const token = loggedUser.token
+    dispatch(setUser(loggedUser));
+    localStorage.setItem('authToken', token )
+    navigate('/profile')
+  };
+
 
   return (
     <form onSubmit={handleLogin}>
