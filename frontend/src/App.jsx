@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./reducers/userReducer";
+import EditProfile from "./components/EditProfile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
             )
           }
         />
+        <Route path="edit" element={user && user.name && <EditProfile />} />
       </Routes>
     </div>
   );

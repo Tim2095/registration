@@ -10,9 +10,9 @@ const Header = () => {
         <li className={classes["header-link"]}>
           <Link to="/register">SignUp</Link>
         </li>
-        <li className={classes["header-link"]}>
+        {!user.username && <li className={classes["header-link"]}>
           <Link to="/login">SignIn</Link>
-        </li>
+        </li>}
         {user && user.username && (
           <li className={classes["header-link"]}>
             <Link to="/">Sign Out</Link>

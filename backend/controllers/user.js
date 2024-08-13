@@ -29,4 +29,10 @@ userRouter.post("/", async (req, res) => {
 
 });
 
+
+userRouter.put('/:id'), async (req, res) => {
+  const body = req.body
+  console.log(body)
+}
+
 module.exports = userRouter;
