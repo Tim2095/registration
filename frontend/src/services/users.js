@@ -21,22 +21,15 @@ const createUser = async (user) => {
   }
 };
 
-const getUserData = async (token) => {
-  try {
-    const response = await axios.get(`${baseUrl}/me`, {
-      headers: {
-         Authorization: `Bearer ${token}`
-      }
-    })
-    return response.data
-  } catch(error) {
-    console.error('Failed to fetch user data:', error);
-    throw error;
-  }
+const updateUser = async (user) => {
+  const response = await axios.put(`${baseUrl}/${user.id}`, user)
+  console.log(response.data)
+  return response.data
 }
+
 
 export default {
   // getAll,
   createUser,
-  getUserData
+  updateUser
 };

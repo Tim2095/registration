@@ -18,6 +18,7 @@ const Login = () => {
       password,
     });
 
+
     dispatch(setUser(loggedUser));
     localStorage.setItem("authAppUser", JSON.stringify(loggedUser));
     navigate("/profile");

@@ -1,7 +1,7 @@
 import classes from "./header.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, clearUser } from "../reducers/userReducer";
+import { clearUser } from "../reducers/userReducer";
 
 
 const Header = () => {
