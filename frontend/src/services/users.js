@@ -1,16 +1,6 @@
 const baseUrl = "/api/users";
 import axios from "axios";
 
-// const getAll = async () => {
-//   try {
-//     const response = await axios.get(baseUrl);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching users:", error);
-//     throw error;
-//   }
-// };
-
 const createUser = async (user) => {
   try {
     const response = await axios.post(baseUrl, user);
@@ -22,14 +12,26 @@ const createUser = async (user) => {
 };
 
 const updateUser = async (user) => {
-  const response = await axios.put(`${baseUrl}/${user.id}`, user)
-  console.log(response.data)
-  return response.data
-}
+  try {
+    const token = JSON.parse(localStorage.getItem("authAppUser")).token;
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.put(`${baseUrl}/${user.id}`, user, config);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error updating user data:", error);
+    throw error;
+  }
+};
 
 export default {
-  // getAll,
+
   createUser,
-  updateUser
+  updateUser,
 };
