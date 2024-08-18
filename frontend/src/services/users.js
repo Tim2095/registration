@@ -22,7 +22,7 @@ const updateUser = async (user) => {
     };
 
     const response = await axios.put(`${baseUrl}/${user.id}`, user, config);
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.log("Error updating user data:", error);
@@ -31,7 +31,6 @@ const updateUser = async (user) => {
 };
 
 export default {
-
   createUser,
   updateUser,
 };
